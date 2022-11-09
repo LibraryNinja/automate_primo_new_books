@@ -59,7 +59,8 @@ headersxml = {"Accept": "application/xml"}
 reportpath = "/shared/.../Newly-Received Physical Items"
 
 #Makes request to pull from the first report
-r = requests.get(alma_base+'/analytics/reports?path=' + reportpath + '&col_names=false&apikey=' + analyticsapi, headers=headersxml)
+#Default limit is 25, number must be a multiple of 25
+r = requests.get(alma_base+'/analytics/reports?path=' + reportpath + '&limit=150&col_names=false&apikey=' + analyticsapi, headers=headersxml)
 r.raise_for_status
 xml = r.content
 
@@ -80,7 +81,7 @@ for i in range(0,len(rawmms)):
 ebookreportpath = "/shared/.../Newly-Received Ebooks"
 
 #Now go through ebook report
-rebook = requests.get(alma_base+'/analytics/reports?path=' + ebookreportpath + '&col_names=false&apikey=' + analyticsapi, headers=headersxml)
+rebook = requests.get(alma_base+'/analytics/reports?path=' + ebookreportpath + '&limit=150&col_names=false&apikey=' + analyticsapi, headers=headersxml)
 rebook.raise_for_status
 xmlmore = rebook.content
 moresoup = BeautifulSoup(rebook.content, "xml")
